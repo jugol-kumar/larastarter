@@ -136,6 +136,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/utils" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/schema" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/browner12/helpers" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/imliam/laravel-env-set-command" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/msztorc/laravel-env" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

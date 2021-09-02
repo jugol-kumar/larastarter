@@ -57,4 +57,8 @@ Route::resource('menus', MenuController::class)->except(['show']);
 Route::group(['as' => 'settings.', 'prefix' => 'settings/'], function (){
    Route::get('/general', [SettingController::class, 'general'])->name('general');
    Route::put('/general', [SettingController::class, 'generalUpdate'])->name('general.update');
+
+   Route::get('/appearance', [SettingController::class, 'appearance'])->name('appearance');
+   Route::put('/appearance', [SettingController::class, 'appearanceUpdate'])->name('appearance.update');
 });
+

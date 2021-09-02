@@ -48,21 +48,21 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
-//         Gate::authorize('app.roles.create');
-//         $this->validate($request, [
-//             'name' => 'required|unique:roles',
-//             'permissions' => 'required|array',
-//             'permissions.*' => 'integer',
-//         ]);
-// //
-//         Role::create([
-//             'name' => $request->name,
-//             'slug' => Str::slug($request->name),
-//         ])->permissions()->sync($request->input('permissions'),[]);
+//        return $request;
+         Gate::authorize('app.roles.create');
+         $this->validate($request, [
+             'name' => 'required|unique:roles',
+             'permissions' => 'required|array',
+             'permissions.*' => 'integer',
+         ]);
 
-//         notify()->success("Role Added Successfull:)","Added");
-//         return redirect()->route('app.roles.index');
+         Role::create([
+             'name' => $request->name,
+             'slug' => Str::slug($request->name),
+         ])->permissions()->sync($request->input('permissions'),[]);
+
+         notify()->success("Role Added Successfull:)","Added");
+         return redirect()->route('app.roles.index');
     }
 
     /**
