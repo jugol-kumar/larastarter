@@ -3,7 +3,10 @@
 
 
 {{--        <div class="logo-src"></div>--}}
-        <h4 class="">{{ setting('site_title') }}</h4>
+{{--        <h4 class="">{{ setting('site_title') }}</h4>--}}
+            <div>
+                <img src="{{ Storage::url(setting('site_logo')) }}" alt="" style="width: 100px!important">
+            </div>
 
 
         <div class="header__pane ml-auto">

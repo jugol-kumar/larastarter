@@ -9,7 +9,7 @@
                     <i class="pe-7s-settings icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>Settings</div>
+                <div>General Settings</div>
             </div>
             <div class="page-title-actions">
                 <a href="{{route('app.dashboard')}}" class="btn-shadow mr-3 btn btn-danger">

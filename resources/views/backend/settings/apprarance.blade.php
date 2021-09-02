@@ -1,5 +1,12 @@
 @extends('layouts.backend.app')
-
+@push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+    <style>
+        .dropify-wrapper .dropify-message p{
+            font-size: initial;
+        }
+    </style>
+@endpush
 @section('content')
 
     <div class="app-page-title">
@@ -9,7 +16,7 @@
                     <i class="pe-7s-settings icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>Settings</div>
+                <div>Appearance Settings</div>
             </div>
             <div class="page-title-actions">
                 <a href="{{route('app.dashboard')}}" class="btn-shadow mr-3 btn btn-danger">
@@ -37,45 +44,40 @@
                     </div>
 
 
-                    <form method="post" action="{{ route('app.settings.general.update') }}">
+                    <form method="post" action="{{ route('app.settings.appearance.update') }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="site_title">Name</label>
-                                    <input id="site_title" type="text" class="form-control @error('site_title') is-invalid @enderror"
-                                           name="site_title" value="{{ setting('site_title') ?? old('site_title') }}">
-                                    @error('site_title')
-                                    <span class="invalid-feedback" role="alert">
+                                    <div class="form-group">
+                                        <label for="site_logo">Logo (Only Image Allowed)</label>
+
+                                        <input type="file" class="dropify @error('site_logo') is-invalid @enderror"
+                                               id="site_logo" name="site_logo"
+                                               data-default-file="{{ setting('site_logo') != null ? Storage::url(setting('site_logo')) : '' }}">
+
+                                        @error('site_logo')
+                                        <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
-                                </div>
+                                        @enderror
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="description">Site Description</label>
-                                    <textarea id="site_description" type="text" class="form-control @error('site_description') is-invalid @enderror"
-                                              name="site_description">{{ setting('site_description') ?? old('site_description') }} </textarea>
-                                    @error('site_description')
-                                    <span class="invalid-feedback" role="alert">
+
+                                    <div class="form-group">
+                                        <label for="site_favicon">Favicon (Only Image Allowed & Size 33 X 33 )</label>
+
+                                        <input type="file" class="dropify @error('site_favicon') is-invalid @enderror"
+                                               id="site_favicon" name="site_favicon"
+                                               data-default-file="{{ setting('site_favicon') != null ? Storage::url(setting('site_favicon')) : '' }}">
+
+                                        @error('site_favicon')
+                                        <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
-                                </div>
-
-
-
-                                <div class="form-group">
-                                    <label for="description">Site Address</label>
-                                    <textarea id="site_address" type="text" class="form-control @error('site_address') is-invalid @enderror"
-                                              name="site_address">{{ setting('site_address') ?? old('site_address') }} </textarea>
-                                    @error('site_address')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                                        @enderror
+                                    </div>
 
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-arrow-circle-up"></i>
@@ -92,22 +94,10 @@
 @endsection
 
 @push('js')
-    <script src="https://cdn.tiny.cloud/1/4djk3cud91pzgow03ex6gqsegn6aat4f5v1ux5c1at99hkgo/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
             $('.dropify').dropify();
-            $('.js-example-basic-single').select2();
-        });
-    </script>
-    <script>
-        tinymce.init({
-            selector: '#body',
-            plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-            toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
-            toolbar_mode: 'floating',
-            tinycomments_mode: 'embedded',
-            tinycomments_author: 'Author name',
         });
     </script>
 @endpush
