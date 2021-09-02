@@ -6,6 +6,7 @@ use App\Http\Controllers\backend\MenuController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -23,6 +24,9 @@ use Illuminate\Support\Facades\Route;
 //   'uses' => DashboardController::class,
 //   'as'   => 'dashboard'
 //]);
+
+
+
 Route::get('/dashboard',DashboardController::class)->name('dashboard');
 
 // Roles and User
@@ -47,3 +51,10 @@ Route::resource('pages', PageController::class);
 
 // Menus
 Route::resource('menus', MenuController::class)->except(['show']);
+
+
+
+Route::group(['as' => 'settings.', 'prefix' => 'settings/'], function (){
+   Route::get('/general', [SettingController::class, 'general'])->name('general');
+   Route::put('/general', [SettingController::class, 'generalUpdate'])->name('general.update');
+});

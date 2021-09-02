@@ -145,5 +145,14 @@ class PermissionSeeder extends Seeder
             'name'      => 'Delete menu',
             'slug'      => 'app.menus.destroy'
         ]);
+
+        //start settings module permissions
+
+        $moduleAppMenu = Module::updateOrCreate(['name' => 'Menu Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppMenu->id,
+            'name'      => 'Access Settings',
+            'slug'      => 'app.setting.index'
+        ]);
     }
 }
