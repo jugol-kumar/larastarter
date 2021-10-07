@@ -140,4 +140,35 @@ class UserController extends Controller
         notify()->success("User Deleted Successful","Success");
         return back();
     }
+
+
+    public function goToVerify(){
+        return view('auth.verify_code');
+    }
+
+    public function verifyUser(Request $request){
+        if ($request->code){
+            $user = User::where('code', $request->code)->first();
+            if ($user){
+                $user->active = 1;
+                $user->code   = null;
+                $user->save();
+                return view(redirect(route('home')))->with(['message'=>'Your Account Is Active']);
+            }else{
+                return redirect(route('gotoVerify'))->with(['message'=>'Your Code Is Not Valid']);
+            }
+        }else{
+            return redirect(route('gotoVerify'))->with(['message'=>'Check Message And Put Valid Code. Or Send Resend Code...']);
+        }
+    }
+
+    public function resendVerify(){
+        return "send verify code";
+    }
+
+
+
+
+
+
 }
